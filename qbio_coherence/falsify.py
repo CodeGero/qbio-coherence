@@ -136,11 +136,12 @@ def falsify(claim: Claim) -> Report:
                 "falsified unless a stronger, justified protection is demonstrated."
             )
         else:
-            verdict = "UNTESTED"
+            verdict = "FALSIFIED"
             failure_mode = (
-                "Claim exceeds the bare dephasing floor but no protection mechanism "
-                "is declared. Cannot be ruled out by physics alone; requires a "
-                "specific mechanism + experimental verification."
+                "Claim exceeds the bare dephasing floor and no protection mechanism "
+                f"is declared. The floor alone ({bare_tau_fs:.1f} fs @310K) cannot "
+                f"permit {claimed_tau_fs:.1f} fs with nothing to lift it. Falsified "
+                "unless a specific, quantified protection mechanism is supplied."
             )
 
     return Report(

@@ -1,0 +1,114 @@
+[
+  {
+    "source": "openalex",
+    "id": "https://doi.org/10.3390/e28020204",
+    "title": "Quantum Information Flow in Microtubule Tryptophan Networks",
+    "abstract": "",
+    "date": "2026-02-11",
+    "url": "https://doi.org/10.3390/e28020204"
+  },
+  {
+    "source": "openalex",
+    "id": "https://doi.org/10.5281/zenodo.19744600",
+    "title": "qmc_mt: Quantum Microtubule Coherence Framework",
+    "abstract": "",
+    "date": "2026-04-24",
+    "url": "https://doi.org/10.5281/zenodo.19744600"
+  },
+  {
+    "source": "openalex",
+    "id": "https://doi.org/10.5281/zenodo.19363584",
+    "title": "Can the Brain Function as a Quantum Information Transducer? An Eight-Principle Synthesis from Biological Precedents to Microtubule Coherence",
+    "abstract": "",
+    "date": "2026-04-01",
+    "url": "https://doi.org/10.5281/zenodo.19363584"
+  },
+  {
+    "source": "openalex",
+    "id": "https://doi.org/10.5281/zenodo.20352519",
+    "title": "The Quantum Bridge: How Microtubule Coherence Mechanizes the Eigenform Framework",
+    "abstract": "",
+    "date": "2026-05-23",
+    "url": "https://doi.org/10.5281/zenodo.20352519"
+  },
+  {
+    "source": "openalex",
+    "id": "https://doi.org/10.5281/zenodo.20102651",
+    "title": "KwanTube v3.5.1: reproducible open-system and convergence-validation framework for tubulin quantum dynamics",
+    "abstract": "",
+    "date": "2026-05-10",
+    "url": "https://doi.org/10.5281/zenodo.20102651"
+  },
+  {
+    "source": "openalex",
+    "id": "https://doi.org/10.64898/2026.05.10.724047",
+    "title": "Beyond Redfield: Thermodynamic Bounds and Non-Perturbative Quantum Dynamics in Tubulin Networks",
+    "abstract": "",
+    "date": "2026-05-13",
+    "url": "https://doi.org/10.64898/2026.05.10.724047"
+  },
+  {
+    "source": "openalex",
+    "id": "https://doi.org/10.5281/zenodo.20100469",
+    "title": "McCaul's Law of Coherence: A Unified Cross-Domain Compendium \u2014 Coherence as a Universal Physical Invariant from Fluid Dynamics to Quantum Systems, Plasma Optics, Biological Signaling, and the Geometry of Light",
+    "abstract": "",
+    "date": "2026-05-09",
+    "url": "https://doi.org/10.5281/zenodo.20100469"
+  },
+  {
+    "source": "openalex",
+    "id": "https://openalex.org/W7130294438",
+    "title": "Life Generates Form: The Mutualism Bifurcation, Biological Quantum Coherence, and the Emergence of Spacetime from Living Systems",
+    "abstract": "",
+    "date": "2026-02-16",
+    "url": "https://openalex.org/W7130294438"
+  },
+  {
+    "source": "openalex",
+    "id": "https://doi.org/10.1063/5.0303821",
+    "title": "Extended perturbative approach for quantitative calculation of the coherence excitation energy transfer in photosynthetic light harvesting complex",
+    "abstract": "",
+    "date": "2026-02-03",
+    "url": "https://doi.org/10.1063/5.0303821"
+  },
+  {
+    "source": "openalex",
+    "id": "https://openalex.org/W7148176973",
+    "title": "Time-resolved role of coherence and delocalization in photosynthetic energy transfer from an extended exciton model",
+    "abstract": "",
+    "date": "2026-03-31",
+    "url": "https://openalex.org/W7148176973"
+  },
+  {
+    "source": "openalex",
+    "id": "https://doi.org/10.1021/acs.jpcb.5c07333",
+    "title": "Exploring Biological Quantum Effects in Photosynthesis across Varied Spatial Scales",
+    "abstract": "",
+    "date": "2026-04-01",
+    "url": "https://doi.org/10.1021/acs.jpcb.5c07333"
+  },
+  {
+    "source": "openalex",
+    "id": "https://doi.org/10.1038/s41598-025-32180-x",
+    "title": "The arrangement of anisotropic spin couplings can optimize sensitivity of the cryptochrome radical pair to the direction of geomagnetic field",
+    "abstract": "",
+    "date": "2026-01-13",
+    "url": "https://doi.org/10.1038/s41598-025-32180-x"
+  },
+  {
+    "source": "openalex",
+    "id": "https://doi.org/10.5281/zenodo.20049835",
+    "title": "Quantum Entanglement and Information Theory in Radical Pair Navigation",
+    "abstract": "",
+    "date": "2026-05-06",
+    "url": "https://doi.org/10.5281/zenodo.20049835"
+  },
+  {
+    "source": "openalex",
+    "id": "https://doi.org/10.1038/s41586-025-09971-3",
+    "title": "Quantum spin resonance in engineered proteins for multimodal sensing",
+    "abstract": "",
+    "date": "2026-01-21",
+    "url": "https://doi.org/10.1038/s41586-025-09971-3"
+  }
+]

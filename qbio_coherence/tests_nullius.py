@@ -93,12 +93,13 @@ class TestAttackSwarm(unittest.TestCase):
 
     def test_extreme_claim_firmly_falsified(self):
         # A claim 100 ns above the 13 fs floor (no mechanism declared) is
-        # 'UNTESTED' by the base falsifier, but the attack swarm shows no
-        # physically allowed mechanism could rescue it -> FIRMLY FALSIFIED.
+        # FALSIFIED by the base falsifier (exceeds the floor with nothing to lift
+        # it), and the attack swarm shows no physically allowed mechanism could
+        # rescue it -> FIRMLY FALSIFIED.
         from .claims import Claim
         extreme = Claim(name="Extreme 100 ns claim", claimed_tau_fs=1e8, kind="electronic")
         r = attack_claim(extreme)
-        self.assertEqual(r.nominal_verdict, "UNTESTED")
+        self.assertEqual(r.nominal_verdict, "FALSIFIED")
         self.assertGreater(r.required_N, 10000)
         self.assertEqual(r.robustness, "FIRMLY FALSIFIED")
 
@@ -123,6 +124,36 @@ class TestBoard(unittest.TestCase):
         rows = [report_to_row(falsify(c)) for c in BUILTIN_CLAIMS]
         path = write_board(rows, out)
         self.assertTrue(os.path.exists(path))
+
+
+class TestCheckCommand(unittest.TestCase):
+    def _run(self, *args):
+        from .ledger_cli import build_parser
+        import io, contextlib
+        p = build_parser()
+        ns = p.parse_args(["check", *args])
+        return ns
+
+    def test_no_mechanism_exceeds_floor_falsified(self):
+        ns = self._run("--name", "X", "--tau", "1000",
+                        "--protection_mechanism", "none declared")
+        from .claims import claim_from_dict
+        from .falsify import falsify
+        c = claim_from_dict({
+            "name": "X", "claimed_tau_fs": 1000.0,
+            "protection_mechanism": "none declared",
+        })
+        self.assertEqual(falsify(c).verdict, "FALSIFIED")
+
+    def test_declared_mechanism_survives(self):
+        from .claims import claim_from_dict
+        from .falsify import falsify
+        c = claim_from_dict({
+            "name": "Y", "claimed_tau_fs": 1e9, "kind": "spin",
+            "hyperfine": 5.0, "quantum_zeno": 2.0,
+            "protection_mechanism": "hyperfine+Zeno",
+        })
+        self.assertEqual(falsify(c).verdict, "SURVIVES")
 
 
 if __name__ == "__main__":

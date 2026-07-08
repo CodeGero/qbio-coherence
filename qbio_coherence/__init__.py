@@ -29,7 +29,7 @@ from .ledger import Ledger, commit_leaderboard
 from .attack import attack_claims, attack_claim
 from .cert import make_certificate
 from .board import generate_html, write_board
-__version__ = "0.3.4"
+__version__ = "0.3.5"
 __all__ = [
     "FIRMENICH_GAMMA_DEPHASE",
     "FIRMENICH_T_COH",

@@ -63,9 +63,11 @@ class TestFalsify(unittest.TestCase):
 
     def test_orch_or_naive_falsified(self):
         r = falsify(get_claim("MT Orch-OR functional coherence (naive)"))
-        # No mechanism declared + claim exceeds 13 fs floor -> UNTESTED (not
-        # ruled out by physics alone, but unsupported until a mechanism is given)
-        self.assertEqual(r.verdict, "UNTESTED")
+        # No mechanism declared + claim exceeds the 13 fs floor by ~77x -> FALSIFIED.
+        # The bare dephasing floor cannot permit ~1 ps with nothing to lift it; a
+        # claim that exceeds the floor with no declared mechanism is physically
+        # ruled out, not merely "untested".
+        self.assertEqual(r.verdict, "FALSIFIED")
 
     def test_collective_survives(self):
         r = falsify(get_claim("MT collective-mode protection (N=1000)"))
