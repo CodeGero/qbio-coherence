@@ -1,0 +1,43 @@
+[
+  {
+    "name": "MT QED-cavity coherence (Mavromatos 2025)",
+    "claimed_tau_fs": 1.0e9,
+    "kind": "electronic",
+    "temperature_K": 310,
+    "n_collective": 1,
+    "non_markovian": 1.0,
+    "entropy": 1.0,
+    "structured_bath": 1.0,
+    "protection_mechanism": "high-Q QED cavity + ordered-water dipole shielding (no numerically-justified protection factor supplied)",
+    "claim_source": "Mavromatos, Mershin & Nanopoulos, arXiv:2505.20364 (2025), 'On the Potential of Microtubules for Scalable Quantum Computation', Table 2 decoherence time O(10^-6) s",
+    "notes": "Theoretically predicted microsecond MT coherence via cavity isolation. No HEOM/Redfield dephasing calculation; protection not expressed as a factor our model supports."
+  },
+  {
+    "name": "Cryptophyte PE545 few-hundred-fs coherence (2024)",
+    "claimed_tau_fs": 300.0,
+    "kind": "electronic",
+    "temperature_K": 300,
+    "n_collective": 7,
+    "non_markovian": 1.0,
+    "entropy": 1.0,
+    "structured_bath": 18.0,
+    "protection_mechanism": "environment-assisted transport / exciton-vibrational coupling (ENAQT)",
+    "claim_source": "pmid:40401677 (2024, 'Quantum phase synchronization revealing few-hundred femtosecond coherence in cryptophyte phycoerythrin 545'); corroborated by Mavromatos 2025 Table 3 'Photosynthetic coherence time 300 fs'",
+    "notes": "Experimentally observed room-temperature antenna coherence; exciton-vibrational coupling is the documented mechanism."
+  },
+  {
+    "name": "Cry4a quantum-Zeno radical-pair compass (2025)",
+    "claimed_tau_fs": 5.0e9,
+    "kind": "spin",
+    "temperature_K": 310,
+    "n_collective": 1,
+    "non_markovian": 1.0,
+    "entropy": 1.0,
+    "structured_bath": 1.0,
+    "quantum_zeno": 5.0,
+    "hyperfine": 5.0,
+    "protection_mechanism": "quantum Zeno effect + CISS chirality-enhanced hyperfine protection",
+    "claim_source": "arXiv:2505.01519 (2025, 'Chirality-bolstered quantum Zeno effect enhances radical pair-based magnetoreception'); Hore quantum-needle requirement >few us (PNAS 113, 4634, 2016)",
+    "notes": "Spin regime; radical-pair lifetime must exceed a few microseconds for the avian compass. Distinct baseline from electronic coherence."
+  }
+]
