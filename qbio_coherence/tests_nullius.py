@@ -61,6 +61,16 @@ class TestLedger(unittest.TestCase):
         self.assertEqual(n, len(rows))
         self.assertTrue(l.verify()["valid"])
 
+    def test_commit_rows_dedup(self):
+        """Re-committing the same rows must NOT duplicate entries (cron guard)."""
+        l = self._ledger()
+        rows = [report_to_row(falsify(c)) for c in BUILTIN_CLAIMS]
+        n1 = l.commit_rows(rows, reset=True)
+        n2 = l.commit_rows(rows)  # second run, same rows
+        self.assertEqual(n1, len(rows))
+        self.assertEqual(n2, 0, "duplicate commit must append 0")
+        self.assertEqual(l.verify()["count"], len(rows))
+
 
 class TestAttackSwarm(unittest.TestCase):
     def test_all_builtin_attacked(self):

@@ -121,12 +121,24 @@ class Ledger:
             )
         return entry
 
+    def _exists(self, payload: dict) -> bool:
+        """True if an entry with the same (claim, verdict, claimed_tau_fs) is
+        already in the ledger. Prevents the weekly cron from re-committing the
+        entire leaderboard and duplicating every entry on each run.
+        """
+        key = (payload.get("claim"), payload.get("verdict"), payload.get("claimed_tau_fs"))
+        for e in self._read_raw():
+            p = e.get("payload", {})
+            if (p.get("claim"), p.get("verdict"), p.get("claimed_tau_fs")) == key:
+                return True
+        return False
+
     def commit_rows(self, rows: list, reset: bool = False) -> int:
         """Commit a list of verdict rows (e.g. from the leaderboard).
 
         If reset=True, the chain is cleared first (dev/reproducibility only --
         a production ledger should never be reset). Returns the number of
-        entries appended.
+        NEW entries appended (duplicates of existing claims are skipped).
         """
         if reset:
             self.reset()
@@ -134,6 +146,8 @@ class Ledger:
         for row in rows:
             # Store only the stable verdict fields, drop volatile bookkeeping.
             payload = {k: row[k] for k in row if k not in ("added", "source_tag")}
+            if self._exists(payload):
+                continue
             self.add(payload)
             n += 1
         return n
