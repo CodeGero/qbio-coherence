@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "kryptorious-qbio-coherence"
-version = "0.3.2"
+version = "0.3.3"
 description = "Bio-Coherence Falsifier: a computational falsification engine for biological quantum-coherence claims, anchored to the Firmenich 2026 HEOM dephasing baseline."
 readme = "README.md"
 requires-python = ">=3.9"
