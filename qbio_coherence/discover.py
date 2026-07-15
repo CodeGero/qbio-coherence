@@ -13,6 +13,8 @@ Usage:
 
 import argparse
 import json
+import sys
+import time
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -36,9 +38,40 @@ NS = {"a": "http://www.w3.org/2005/Atom"}
 UA = {"User-Agent": "kryptorious-nullius/0.3 (research; mailto:research@kryptorious.example)"}
 
 
-def _get(url: str, timeout: int = 30) -> bytes:
-    req = urllib.request.Request(url, headers=UA)
-    return urllib.request.urlopen(req, timeout=timeout).read()
+def _reconstruct_abstract(ai: dict | None) -> str:
+    """OpenAlex stores abstracts as an inverted index {word: [positions]}.
+    Reconstruct readable text by sorting words on their first occurrence."""
+    if not ai:
+        return ""
+    slots = []
+    for word, positions in ai.items():
+        for p in positions:
+            slots.append((p, word))
+    slots.sort(key=lambda x: x[0])
+    return " ".join(w for _, w in slots)
+
+
+def _get(url: str, timeout: int = 30, retries: int = 4) -> bytes:
+    last = None
+    for attempt in range(retries):
+        try:
+            req = urllib.request.Request(url, headers=UA)
+            return urllib.request.urlopen(req, timeout=timeout).read()
+        except urllib.error.HTTPError as e:
+            last = e
+            if e.code in (429, 500, 502, 503, 504) and attempt < retries - 1:
+                time.sleep(2 ** (attempt + 2))  # 4s, 8s, 16s
+                continue
+            raise
+        except Exception as e:  # URLError, socket timeout, etc.
+            last = e
+            if attempt < retries - 1:
+                time.sleep(2 ** (attempt + 2))
+                continue
+            raise
+    if last:
+        raise last
+    raise RuntimeError("unreachable")
 
 
 def _is_biological(text: str) -> bool:
@@ -106,7 +139,7 @@ def fetch_openalex(terms, days: int, per: int) -> list:
             continue
         for w in data.get("results", []):
             title = w.get("title") or ""
-            abstract = (w.get("abstract") or "")[:4000]
+            abstract = _reconstruct_abstract(w.get("abstract_inverted_index"))[:4000]
             if not _is_biological(title + " " + abstract):
                 continue
             out.append({
@@ -121,7 +154,15 @@ def fetch_openalex(terms, days: int, per: int) -> list:
 
 
 def discover(days: int = 10, max_per: int = 12) -> list:
-    papers = fetch_arxiv(TERMS, days, max_per) + fetch_openalex(TERMS, days, max_per)
+    papers = []
+    try:
+        papers += fetch_arxiv(TERMS, days, max_per)
+    except Exception as e:  # arXiv down/throttled: keep going with OpenAlex.
+        print(f"[discover] arXiv fetch failed ({e}); using OpenAlex only", file=sys.stderr)
+    try:
+        papers += fetch_openalex(TERMS, days, max_per)
+    except Exception as e:
+        print(f"[discover] OpenAlex fetch failed ({e})", file=sys.stderr)
     # Dedup on NORMALIZED TITLE, not on `id`: OpenAlex returns the same paper
     # under multiple id values (doi, openalex id, different URLs), so id-based
     # dedup leaks duplicates. Keep the first occurrence of each title.
